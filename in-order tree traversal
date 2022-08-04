@@ -1,0 +1,43 @@
+public class Zad {
+private Zad left,right;
+private int data;
+
+    Zad(int data){
+        right=null;
+        left=null;
+        this.data=data;
+    }
+
+    public Zad(int data,Zad left, Zad right) {
+        this.left = left;
+        this.right = right;
+        this.data = data;
+    }
+
+    static void inOrder(Zad node){
+        if(node!=null){
+            inOrder(node.left);
+            System.out.println(node.data);
+            inOrder(node.right);
+        }
+    }
+    static void inOrderIterative(Zad node){
+        Stack<Zad> stack=new Stack<>();
+        Zad treeNode=node;
+        while (treeNode!=null||!stack.isEmpty()){
+                while (treeNode!=null){
+                    stack.push(treeNode);
+                    treeNode=treeNode.left;
+                }
+                treeNode=stack.pop();
+            System.out.println(treeNode.data);
+            treeNode=treeNode.right;
+        }
+    }
+    public static void main(String[] args) {
+        Zad tree=new Zad(12,new Zad(6,new Zad(2),new Zad(3)),new Zad(4,new Zad(7),new Zad(8,new Zad(4),new Zad(9))));
+        inOrder(tree);
+        System.out.println();
+        inOrderIterative(tree);
+    }
+}
