@@ -1,0 +1,32 @@
+public class Zad {
+
+    public static boolean isSorted(String[] words, String order){
+        Map <Character,Integer> weight=new HashMap<>();
+        for (int i=0;i< order.length();i++){
+            weight.put(order.charAt(i),i+1);
+        }
+        for (int i = 0; i < words.length-1; i++) {
+            int length=Math.min(words[i].length(),words[i+1].length());
+            boolean checkNeed=true;
+            for (int j = 0; j < length; j++) {
+                if(weight.get(words[i].charAt(j))>weight.get(words[i+1].charAt(j))){
+                    return false;
+                }
+                if(weight.get(words[i].charAt(j))<weight.get(words[i+1].charAt(j))){
+                    checkNeed=false;
+                    break;
+                }
+            }
+            if(checkNeed && words[i].length()>words[i+1].length()){
+                return false;
+            }
+        }
+return true;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isSorted(new String[]{"abcd", "efgh"},"zyxwvutsrqponmlkjihgfedcba"));
+        System.out.println(isSorted(new String[]{"zyx", "zyxw", "zyxwy"},"zyxwvutsrqponmlkjihgfedcba"));
+        System.out.println(isSorted(new String[]{"apple", "app"},"abcdefghijklmnopqrstuvwxyz"));
+    }
+}
