@@ -1,0 +1,45 @@
+public class Zad {
+    int V;
+    LinkedList<Integer> adj[];
+   Zad (int v){
+    V=v;
+    adj=new LinkedList[v];
+       for (int i = 0; i <v ; i++) {
+           adj[i]=new LinkedList();
+       }
+   }
+   void addEdge(int v,int w){
+        adj[v].add(w);
+        adj[w].add(v);
+   }
+
+   boolean isCyclic(int v,boolean visited[],int parent){
+    visited[v]=true;
+    int i;
+
+    Iterator<Integer> iterator=adj[v].iterator();
+    while (iterator.hasNext()){
+        i=iterator.next();
+        if(!visited[i]){
+            if(isCyclic(i,visited,v)){
+                return true;
+            }
+        }
+        else if(i!=parent)
+            return true;
+    }
+       return false;
+   }
+    boolean find_cycle(){
+       boolean visited[]=new boolean[V];
+        for (int i = 0; i <V ; i++) {
+            visited[i]=false;
+        }
+        for (int i = 0; i <V ; i++) {
+            if(!visited[i])
+                if (isCyclic(i,visited,-1))
+                return true;
+        }
+       return  false;
+    }
+}
