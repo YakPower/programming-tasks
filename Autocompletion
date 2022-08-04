@@ -1,0 +1,65 @@
+public class Zad {
+    private Map<String, Zad> children;
+    private boolean isWord;
+    private String word;
+    Zad (){
+        isWord=false;
+        children=new HashMap<>();
+    }
+    Zad (String word,boolean tf){
+        this.word=word;
+        isWord=tf;
+        children=new HashMap<>();
+    }
+
+
+    private  void add(String word){
+        Zad temp=this;
+        for (int i = 0; i < word.length()-1; i++) {
+            if (!temp.children.containsKey(word.substring(0, i+1))) {
+                temp.children.put(word.substring(0, i+1), new Zad(word.substring(0, i+1), false));
+            }
+            temp=temp.children.get(word.substring(0,i+1));
+        }
+        if(temp.children.containsKey(word)){
+            temp.children.get(word).isWord=true;
+        }
+        else {
+            temp.children.put(word, new Zad(word,true));
+        }
+
+    }
+
+    private void build(String [] words){
+        for (String s :
+                words) {
+            this.add(s);
+        }
+    }
+
+public static ArrayList<String> autocomplete(Zad zad,String line){
+ArrayList<String> arrayList=new ArrayList<>();
+Queue<Zad> queue=new LinkedList<>();
+    for (int i = 0; i < line.length(); i++) {
+        zad=zad.children.get(line.substring(0,i+1));
+    }
+    if (zad != null) {
+        while (!zad.children.isEmpty()||!queue.isEmpty()) {
+
+                queue.addAll(zad.children.values());
+
+                zad = queue.poll();
+                if (zad.isWord) arrayList.add(zad.word);
+
+        }
+    }
+    return arrayList;
+}
+
+    public static void main(String[] args) {
+        Zad zad=new Zad();
+        zad.build(new String[]{"dog","dark","cat","door","dodge"});
+        System.out.println(autocomplete(zad,"do"));
+
+    }
+}
