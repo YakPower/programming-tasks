@@ -1,0 +1,33 @@
+public class Zad {
+
+    public static float calcAngle(int hour,int minute){
+        if(hour<1||hour>12||minute<1||minute>60) throw new InputMismatchException();
+        float angle;
+        float hourAngel,minuteAngle;
+
+        if(hour==12){
+            hourAngel= (minute*0.5f);
+        }
+        else {
+            hourAngel=  (hour*30f+minute*0.5f);
+        }
+
+        if(minute==60){
+            hourAngel=0f;
+            minuteAngle=0;
+        }
+        else {
+            minuteAngle=minute*6;
+        }
+
+
+        angle=  Math.abs(hourAngel-minuteAngle);
+        return angle;
+    }
+    public static void main(String[] args) {
+        System.out.println(calcAngle(12,30));
+        System.out.println(calcAngle(3,30));
+        System.out.println(calcAngle(12,60));
+        System.out.println(calcAngle(8,46));
+    }
+}
