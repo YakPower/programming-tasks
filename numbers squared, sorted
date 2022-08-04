@@ -1,0 +1,26 @@
+public class Zad {
+
+    public static LinkedList<Integer> squareNumber(int [] array){
+        LinkedList<Integer> sortedSquareNumbers=new LinkedList<>();
+        int left=0,right=array.length-1;
+        int tempLeft,tempRight;
+        while (left<=right){
+            if(Math.pow(array[left],2 )<Math.pow(array[right],2 )){
+                sortedSquareNumbers.addFirst(array[right]*array[right]);
+                right--;
+            }
+            else {
+                sortedSquareNumbers.addFirst(array[left]*array[left]);
+                left++;
+            }
+        }
+
+        return sortedSquareNumbers;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(squareNumber(new int[]{-5,-3,-1,0,1,4,5}));
+        System.out.println(squareNumber(new int[]{-6,-3,-1,2,4,5}));
+        System.out.println(squareNumber(new int[]{-5,-4,-2,0,1}));
+    }
+}
