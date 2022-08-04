@@ -1,0 +1,37 @@
+public class Zad {
+//slight better O(n) 
+static int findFixedPoint(int [] array){
+     for (int i = 0; i < array.length; i++) {
+        if(array[i]==i) return i;
+        else if(array[i]>i){
+            i=array[i]-1;
+        }
+     }
+     return -1;
+ }
+//O(logn)
+ static int findFixedPointBinary(int [] array){
+    int low=0,high=array.length-1;
+    int middle;
+while (high>low){
+    middle=(high+low)/2;
+if(middle==array[middle]){
+    return middle;
+}
+else if(array[middle]<middle){
+    high=middle-1;
+}
+else {
+    low=middle+1;
+}
+
+}
+    return -1;
+ }
+
+    public static void main(String[] args) {
+        System.out.println(findFixedPoint(new int[]{-5,1,3,4}));
+       System.out.println( findFixedPointBinary(new int[]{-5,1,3,4}));
+
+    }
+}
