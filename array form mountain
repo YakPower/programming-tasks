@@ -1,0 +1,22 @@
+   public static boolean validMountain(int [] array){
+        if(array[0]!=array[array.length-1]){
+            return false;
+        }
+        int temp= array.length;
+        for (int i = 1; i < array.length; i++) {
+            if(array[i]<array[i-1]){
+               temp=i;
+               break;
+            }
+        }
+        if (temp==array.length) return false;
+        for (int i = temp+1; i < array.length; i++) {
+            if(array[i]>array[i-1]) return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(validMountain(new int[]{1,2,3,3,3,3,3,1}));
+    }
+}
