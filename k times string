@@ -1,0 +1,66 @@
+public class Zad {
+
+
+    public static String decodeString(String string){
+        Stack<Character> stack=new Stack<>();
+        StringBuilder end=new StringBuilder();
+
+        LinkedList<Character> temp=new LinkedList<>();
+        for (char c : string.toCharArray()) {
+            if(c==']'){
+                while (true){
+                    char l=stack.pop();
+                    if(l=='['){
+                        int digit=0;
+                        while (!stack.isEmpty()){
+                            if(isDigit(l=stack.pop()))
+                            digit=digit*10+l-48;
+                            else { stack.push(l);break;}
+                        }
+
+                        for (int i = 0; i < digit; i++) {
+                            for (Character character : temp) {
+                                stack.push(character);
+                            }
+                        }
+                        temp.clear();
+                        break;
+                    }else
+                    temp.addFirst(l);
+                }
+            }
+            else stack.push(c);
+        }
+        while (!stack.isEmpty()){
+            end.append(stack.pop());
+        }
+        return String.valueOf(end.reverse());
+    }
+//If nested only (2[a2[b]])(no 2[a]2[b])
+    public static String decodeStringRepeat(String string,int startIndex){
+        int repeat=Integer.parseInt(String.valueOf(string.charAt(startIndex)));
+        StringBuilder end= new StringBuilder();
+        StringBuilder temp= new StringBuilder();
+        String temp2;
+        int i=startIndex+2;
+        while (string.charAt(i)!=']'){
+            if (isDigit(string.charAt(i))){
+                temp2=decodeStringRepeat(string,i);
+                i+=temp2.length()+2;
+              temp.append(temp2);
+              if(i>=string.length()) break;
+                }
+            else {
+                temp.append(string.charAt(i));
+                i++;
+            }
+        }
+        for (int j = 0; j < repeat; j++) {
+            end.append(temp);
+        }
+        return String.valueOf(end);
+    }
+    public static void main(String[] args) {
+        System.out.println(decodeString("2[a3[b]c]"));
+    }
+}
