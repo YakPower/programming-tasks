@@ -1,0 +1,42 @@
+public class Zad {
+  void merge_sort(int []a,int l,int r){
+    if(r-l<2) return;
+    int m=(r+l)/2;
+    merge_sort(a,l,m);
+    merge_sort(a,m,r);
+    merge(a,l, r, m);
+    }
+    void merge(int[]a,int l,int r,int m){
+      int l1=l;
+        int l2=m;
+        ArrayList<Integer> res=new ArrayList<>();
+      while (l1< m ||l2< r){
+          if(l1< m &&l2< r) {
+              if (a[l1] < a[l2]) {
+                  res.add(a[l1]);
+                  l1++;
+              } else {
+                  res.add(a[l2]);
+                  l2++;
+              }
+          }
+            else if(l1< m){
+                res.add(a[l1]);
+                l1++;
+          }
+            else if(l2<r){
+                res.add(a[l2]);
+                l2++;
+          }
+      }
+        for (int i = l; i <r ; i++) {
+            a[i]=res.get(i-l);
+        }
+    }
+    public static void main(String[] args) {
+        Zad zad=new Zad();
+        int []a={3,2,4,5,0,4};
+        zad.merge_sort(a,0,a.length);
+        System.out.println(Arrays.toString(a));
+    }
+}
