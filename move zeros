@@ -1,0 +1,38 @@
+//moving all zeros to right
+
+import java.util.*;
+import java.io.*;
+
+public class Zad {
+
+
+    static int[] moveZeros(int[] heights) {
+        int[] zeros = new int[heights.length];
+        int p = 0;
+        int changes = 0;
+        for (int i = 0; i < heights.length; i++) {
+            if (heights[i] == 0) {
+                zeros[p] = i;
+                p++;
+            } else {
+
+                for (int j = changes; j < i; j++) {
+                    if (heights[j] == 0) {
+                        int tmp = heights[i];
+                        heights[i] = heights[j];
+                        heights[j] = tmp;
+                    }
+                }
+                changes++;
+            }
+        }
+        return heights;
+    }
+
+    public static void main(String[] args) {
+      int [] height=new int[]{1,3,0,4,5,4,0};
+        
+      System.out.println(Arrays.toString(moveZeros(height)));
+
+    }
+}
