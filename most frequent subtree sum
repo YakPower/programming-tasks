@@ -1,0 +1,59 @@
+public class Node {
+
+        int data;
+        Node left,right;
+        Node(int data){
+            this.data=data;
+            left=null;
+            right=null;
+            }
+
+
+        public  int sumFrequency(@NotNull Node tree){
+        int temp;
+        int numberToReturn=tree.data;
+        int frequency=-1;
+        Map<Integer,Integer> map=new HashMap<>();
+        Queue<Node> queue=new LinkedList<>();
+        queue.add(tree);
+        while (!queue.isEmpty()){
+            Node cur=queue.poll();
+
+           temp= cur.data;
+
+
+            if (cur.left!=null){
+                temp+=cur.left.data;
+                queue.add(cur.left);
+            }
+            if(cur.right!=null){
+                temp+=cur.right.data;
+                queue.add(cur.right);
+            }
+            if(map.containsKey(temp)){
+               map.put(temp, map.get(temp)+1);
+               if(frequency<map.get(temp)){
+                   numberToReturn=temp;
+                   frequency=map.get(temp);
+               }
+            }else map.put(temp,1);
+            if(frequency<map.get(temp)){
+                numberToReturn=temp;
+                frequency=map.get(temp);
+            }
+        }
+
+        return numberToReturn;
+    }
+
+    public static void main(String[] args) {
+        Node node=new Node(1);
+        node.left=new Node(2);
+        node.right=new Node(3);
+        node.left.left=new Node(4);
+        node.left.right=new Node(5);
+        node.right.left=new Node(7);
+        node.right.right=new Node(1);
+        System.out.println(node.sumFrequency(node));
+    }
+}
