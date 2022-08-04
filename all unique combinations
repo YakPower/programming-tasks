@@ -1,0 +1,47 @@
+public class Zad {
+
+public void fourSum(int [] numbers,int target) {
+    if(numbers.length<4){
+        System.out.println("<4");
+    }
+
+    Arrays.sort(numbers);
+    HashSet<List<Integer>> combinations = new HashSet<>();
+    int i1=0;
+    int i2=1;
+    int j1=numbers.length-1;
+    int j2= numbers.length-2;
+    while (i1!=j1&&i2!=j2){
+       if(numbers[i1]+numbers[i2]+numbers[j1]+numbers[j2]==target){
+           combinations.add(Arrays.asList(numbers[i1],numbers[i2],numbers[j1],numbers[j2]));
+           if(i2-1==i1){
+               i2++;
+           }
+           else if(j2+1==j1){
+               j2--;
+           }
+           else {
+               i1++;
+           }
+       }
+        else if(numbers[i1]+numbers[i2]+numbers[j1]+numbers[j2]<target){
+            if(i2-1==i1){
+                i2++;
+            }else i1++;
+        }
+        else
+            if(j2+1==j1){
+            j2--;
+        }else j1--;
+    }
+    Iterator<List<Integer>> iterator=combinations.iterator();
+    while (iterator.hasNext()){
+        System.out.println(iterator.next());
+    }
+    }
+
+    public static void main(String[] args) {
+        Zad zad=new Zad();
+        zad.fourSum(new int[]{1,0,-1,0,-2,2},0);
+    }
+}
