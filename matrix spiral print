@@ -1,0 +1,40 @@
+public class Zad {
+
+  static   public ArrayList<Integer> spiralPrint(int [][] grid) {
+        ArrayList<Integer> spiral=new ArrayList<>();
+        int up=grid.length-1;
+        int right=grid[0].length-1;
+int size=grid.length*grid[0].length;
+        int bottom=0;
+        int left=0;
+        while (left<=right && bottom<=up){
+            for (int k = left; k <= right; k++) {
+                spiral.add(grid[bottom][k]);
+            }
+            bottom++;
+            for (int k = bottom; k <= up; k++) {
+                spiral.add(grid[k][right]);
+            }
+            right--;
+            if(bottom<=up) {
+                for (int k = right; k >= left; k--) {
+                    spiral.add(grid[up][k]);
+                }
+                up--;
+            }
+            if(left<=right) {
+                for (int k = up; k >= bottom; k--) {
+                    spiral.add(grid[k][left]);
+                }
+                left++;
+            }
+            }
+        return spiral;
+    }
+    public static void main(String[] args) {
+        int [][] grid=new int[][]
+                {       {1,2,3,4,5,31}};
+
+        System.out.println(spiralPrint(grid));
+    }
+}
