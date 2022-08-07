@@ -16,19 +16,21 @@ public class Zad {
       Queue<Zad> queue2=new LinkedList<>();
         queue.add(node);
         queue2.add(newNode);
-        Set<Zad> visited=new HashSet<>();
-        visited.add(node);
+                Map<Zad,Zad> visited=new HashMap<>();
+        visited.put(node,newNode);
         while (!queue.isEmpty()){
             node= queue.poll();
             newNode=queue2.poll();
-            visited.add(node);
-            int j=0;
+            visited.put(node,newNode);
+
             for (int i = 0; i < node.adjusted.size(); i++) {
-                if (!visited.contains(node.adjusted.get(i))){
+                if (!visited.containsKey(node.adjusted.get(i))){
                     queue.add(node.adjusted.get(i));
                     newNode.adjusted.add(new Zad(node.adjusted.get(i).data, new ArrayList<>()));
-                    queue2.add(newNode.adjusted.get(j));
-                    j++;
+                    queue2.add(newNode.adjusted.get(i));
+
+                }else {
+                    newNode.adjusted.add(visited.get(node.adjusted.get(i)));
                 }
 
             }
