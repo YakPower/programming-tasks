@@ -1,0 +1,72 @@
+public class Zad {
+    int data;
+    ArrayList<Zad> adjusted;
+
+
+
+    Zad (int data,ArrayList<Zad> adj){
+        this.data=data;
+        adjusted=(adj);
+    }
+
+  static   Zad deepNodeCopy(Zad node){
+        Zad newNode = new Zad(node.data, new ArrayList<>());
+        Zad returnNode=newNode;
+        Queue<Zad> queue=new LinkedList<>();
+      Queue<Zad> queue2=new LinkedList<>();
+        queue.add(node);
+        queue2.add(newNode);
+        Set<Zad> visited=new HashSet<>();
+        visited.add(node);
+        while (!queue.isEmpty()){
+            node= queue.poll();
+            newNode=queue2.poll();
+            visited.add(node);
+            int j=0;
+            for (int i = 0; i < node.adjusted.size(); i++) {
+                if (!visited.contains(node.adjusted.get(i))){
+                    queue.add(node.adjusted.get(i));
+                    newNode.adjusted.add(new Zad(node.adjusted.get(i).data, new ArrayList<>()));
+                    queue2.add(newNode.adjusted.get(j));
+                    j++;
+                }
+
+            }
+
+
+        }
+        return returnNode;
+    }
+    void print(){
+        Zad node=this;
+        Queue<Zad> queue=new LinkedList<>();
+        Set<Zad> visited=new HashSet<>();
+        queue.add(node);
+        while (!queue.isEmpty()){
+            node= queue.poll();
+            visited.add(node);
+            System.out.println(node.data+" "+node);
+            for (int i = 0; i < node.adjusted.size(); i++) {
+                if(!visited.contains(node.adjusted.get(i))){
+                    queue.add(node.adjusted.get(i));
+                }
+            }
+        }
+    }
+    public static void main(String[] args) {
+        Zad n5 = new Zad(5,new ArrayList<>());
+        Zad n4=new Zad(4,new ArrayList<>());
+        Zad n3=new Zad(3,new ArrayList<Zad>(Collections.singletonList(n4)));
+        Zad n2=new Zad(2,new ArrayList<>());
+        Zad n1=new Zad(1,new ArrayList<>(Collections.singletonList(n5)));
+        n5.adjusted.add(n3);
+        n4.adjusted.add(n3);
+        n4.adjusted.add(n2);
+        n2.adjusted.add(n4);
+        Zad copy=deepNodeCopy(n1);
+        n1.print();
+        System.out.println("--------------");
+        copy.print();
+
+    }
+}
