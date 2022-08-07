@@ -1,0 +1,48 @@
+
+
+public class Zad {
+
+    static void binaryChange(ArrayList<Boolean> arrayList){
+        int i= arrayList.size()-1;
+        for (int j = i; j >-1 ; j--) {
+            if(arrayList.get(j)){
+                arrayList.set(j,false);
+            }
+            else {
+                arrayList.set(j,true);
+                return;}
+        }
+    }
+
+    static HashSet<ArrayList<Integer>> findUniqueComb(ArrayList<Integer> arrayList, int target){
+
+        ArrayList<Boolean> booleans=new ArrayList<>(Collections.nCopies(arrayList.size()+1,false));
+        HashSet<ArrayList<Integer>> set=new HashSet<>();
+        while (!booleans.get(0)){
+
+            int sum=0;
+
+            for (int i = 0; i<arrayList.size() ; i++) {
+                    sum+=arrayList.get(i)*(booleans.get(i+1) ? 1:0);
+            }
+            if(sum==target) {
+                ArrayList<Integer> list=new ArrayList<>();
+                for (int i = 0; i < arrayList.size(); i++) {
+                    if (booleans.get(i+1)) {
+                        list.add(arrayList.get(i));
+
+                    }
+                }
+                Collections.sort(list);
+                set.add(list);
+
+            }
+            binaryChange(booleans);
+        }
+        return set;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(findUniqueComb(new ArrayList<Integer>(Arrays.asList(10, 1, 2, 7, 6, 1, 5)),8));
+    }
+}
