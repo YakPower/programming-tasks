@@ -1,0 +1,24 @@
+public class Zad {
+
+    public static ArrayList<Integer> partialSort(int[] numbers,int k){
+        PriorityQueue<Integer> priorityQueue=new PriorityQueue<>();
+        ArrayList<Integer> arrayList=new ArrayList<>();
+        k=Math.min(k,numbers.length);
+        for (int i = 0; i <= k; i++) {
+            priorityQueue.add(numbers[i]);
+        }
+        for (int i = k+1; i < numbers.length; i++) {
+            arrayList.add(priorityQueue.poll());
+            priorityQueue.add(numbers[i]);
+        }
+        while (!priorityQueue.isEmpty()){
+            arrayList.add(priorityQueue.poll());
+        }
+        return (arrayList);
+    }
+
+    public static void main(String[] args) {
+int[] arr=new int[]{3, 2, 6, 5, 4};
+        System.out.println(partialSort(arr,2));
+    }
+}
