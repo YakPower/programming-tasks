@@ -1,0 +1,52 @@
+public class Zad {
+
+    public static int[] partitionList(int[] numbers,int k){
+        ArrayList<Integer> arrayList=new ArrayList<>();
+        int left=0,right=numbers.length-1;
+        while (true){
+            while (numbers[left]<k && left!=right){
+
+                left++;
+            }
+            if(numbers[left]==k) {
+                arrayList.add(left);
+                left++;
+                continue;
+            }
+            while (numbers[right]>k&&right!=left){
+                right--;
+            }
+            if(numbers[right]==k) {
+                arrayList.add(right);
+                right--;
+                continue;
+            }
+            if(left==right) break;
+            swap(numbers,left,right);
+
+        }
+
+        for (Integer i:
+             arrayList) {
+            if(i<left){
+                swap(numbers,left,i);
+                left--;
+            }
+            else {
+                swap(numbers,right,i);
+                right++;
+            }
+        }
+        return numbers;
+    }
+    static void swap(int [] arr,int f,int s){
+        int temp=arr[f];
+        arr[f]=arr[s];
+        arr[s]=temp;
+    }
+
+    public static void main(String[] args) {
+int[] arr=new int[]{2, 5, 2, 3, 5, 5};
+        System.out.println(Arrays.toString(partitionList(arr, 3)));
+    }
+}
