@@ -1,0 +1,39 @@
+public class Zad {
+
+    static ArrayList<ArrayList<Integer>> generateAllSubsets(int [] arr){
+        ArrayList<ArrayList<Integer>> listArrayList=new ArrayList<>();
+
+        int start=0;
+        while (start<arr.length){
+
+            for (int i = start+2; i < arr.length; i++) {
+                ArrayList<Integer> arrayList = new ArrayList<>();
+                arrayList.add(arr[start]);
+                arrayList.add(arr[i]);
+                listArrayList.add(arrayList);
+
+            }
+            start++;
+        }
+        start=0;
+        while (start<arr.length){
+            int end=start+1;
+            while (end<=arr.length) {
+                ArrayList<Integer> arrayList = new ArrayList<>();
+                for (int i = start; i < end; i++) {
+                    arrayList.add(arr[i]);
+                }
+                listArrayList.add(arrayList);
+                end++;
+            }
+            start++;
+        }
+        listArrayList.add(new ArrayList<>());
+        return listArrayList;
+    }
+
+    public static void main(String[] args) {
+        int [] arr={1,2,3,4};
+        System.out.println(generateAllSubsets(arr));
+    }
+}
