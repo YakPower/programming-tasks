@@ -1,0 +1,47 @@
+public class Zad {
+
+  public static String rearrangeString(String s){
+        if(s.length()==0) return "None";
+
+        int [] count=new int[26];
+        int max=0;
+        int maxIndex=0;
+      for (int i = 0; i < s.length(); i++) {
+          int i1 = ++count[s.charAt(i) - 'a'];
+          if(i1>max){
+              max=i1;
+              maxIndex=s.charAt(i) - 'a';
+          }
+      }
+      if(count[maxIndex]>(s.length()+1)/2){
+          return "None";
+      }
+      StringBuilder result= new StringBuilder(s.length());
+      for (int i = 0; i < s.length(); i++) {
+        result.append(' ');
+      }
+      int index=0;
+      while (count[maxIndex]>0){
+          result.replace(index,index+1, String.valueOf((char)(maxIndex+'a')));
+          index+=2;
+          count[maxIndex]--;
+      }
+
+      for (int i = 0; i < 26; i++) {
+          while (count[i]>0){
+              index=index>=s.length() ? 1 : index;
+              result.replace(index,index+1, String.valueOf((char)(i+'a')));
+              index+=2;
+              count[i]--;
+          }
+      }
+      return result.toString();
+  }
+
+    public static void main(String[] args) {
+      String s=new String("aab");
+
+      System.out.println(rearrangeString(s));
+
+    }
+}
