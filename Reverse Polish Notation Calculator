@@ -1,0 +1,33 @@
+  public static int reversePolishNotation(List<String> expression){
+    Stack<Integer> stack=new Stack<>();
+    for (String s:expression){
+        if(s.equals("+")){
+            stack.add(stack.pop()+stack.pop());
+        }
+        else if(s.equals("*")){
+            stack.add(stack.pop()*stack.pop());
+        }
+        else if(s.equals("/")){
+            int b=stack.pop();
+            int a=stack.pop();
+            stack.add(a/b);
+        }
+        else if(s.equals("-")){
+            int b=stack.pop();
+            int a=stack.pop();
+            stack.add(a-b);
+        }
+        else {
+            stack.add(Integer.parseInt(String.valueOf(s)));
+        }
+    }
+return stack.pop();
+  }
+
+    public static void main(String[] args) {
+      String [] s=new String[]{"10","6","9","3","+","-11","*","/","*","17","+","5","+"};
+        List<String> arrayList=Arrays.asList(s);
+
+        System.out.println(reversePolishNotation(arrayList));
+    }
+}
