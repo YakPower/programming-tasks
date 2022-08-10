@@ -1,0 +1,36 @@
+public class Zad {
+    public static String  reverseWords(String s){
+    StringBuilder stringBuilder=new StringBuilder();
+    Stack<Character> stack=new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+
+            if(s.charAt(i)==' ') {
+                while (!stack.isEmpty())
+                    stringBuilder.append(stack.pop());
+                stringBuilder.append(' ');
+            }
+            else stack.add(s.charAt(i));
+        }
+        if(!stack.isEmpty())
+            while (!stack.isEmpty())
+                stringBuilder.append(stack.pop());
+
+    return stringBuilder.toString();
+    }
+//another implementation
+    public static String reverseWords2(String s){
+
+        StringBuilder stringBuilder=new StringBuilder(s).reverse();
+        StringBuilder sb=new StringBuilder();
+        String[] strings=stringBuilder.toString().split(" ");
+        for (int i=strings.length-1;i>=0;i--){
+
+            sb.append(strings[i]).append(" ");
+        }
+        return sb.toString();
+    }
+    public static void main(String[] args) {
+        System.out.println( reverseWords("The cat in the hat"));
+        System.out.println( reverseWords2("The cat in the hat"));
+    }
+}
