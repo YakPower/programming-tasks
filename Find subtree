@@ -1,0 +1,72 @@
+public class Zad {
+
+    int data;
+    Zad left,right;
+
+    public Zad(int data) {
+        this.data = data;
+        left=null;
+        right=null;
+    }
+
+    public static boolean isSubtree(Zad tree,Zad subTree){
+        Queue<Zad> queue=new LinkedList<>();
+        queue.add(tree);
+
+        while (!queue.isEmpty()){
+            Zad check=queue.poll();
+            if (check==null){
+                continue;
+            }
+            if(check.data==subTree.data){
+                if(checkRoot(check,subTree))
+                    return true;
+            }
+            queue.add(check.left);
+            queue.add(check.right);
+        }
+        return false;
+    }
+
+    private static boolean checkRoot(Zad checkRoot, Zad subTree){
+        Stack<Zad> tree1=new Stack<>();
+        Stack<Zad> tree2=new Stack<>();
+        tree1.add(checkRoot);
+        tree2.add(subTree);
+        while (!tree1.isEmpty()){
+            Zad root1=tree1.pop();
+            Zad root2=tree2.pop();
+            if(root1==null&&root2==null)
+                continue;
+            else if(root1==null||root2==null)
+                return false;
+            if(root1.data!=root2.data)
+                return false;
+            tree1.push(root1.left);
+            tree2.push(root2.left);
+            tree1.push(root1.right);
+            tree2.push(root2.right);
+            }
+
+        return true;
+        }
+
+
+
+    public static void main(String[] args) {
+      Zad tree=new Zad(3);
+        tree.left=new Zad(4);
+        tree.left.left=new Zad(1);
+
+        tree.right=new Zad(5);
+
+        tree.left.right=new Zad(2);
+        //tree.left.right.left=new Zad(0);
+
+      Zad tree2=new Zad(4);
+      tree2.left=new Zad(1);
+        tree2.right=new Zad(2);
+        System.out.println(isSubtree(tree,tree2));
+
+    }
+}
