@@ -1,0 +1,47 @@
+public class Zad {
+    int data;
+    Zad left,right;
+
+    public Zad(int data) {
+        this.data = data;
+        left=null;
+        right=null;
+    }
+
+    static Zad lowestCommonAncestor(Zad root, Zad n1, Zad n2){
+    Map<Zad,Zad> parents=new HashMap<>();
+    Stack<Zad> stack=new Stack<>();
+    parents.put(root,null);
+    stack.push(root);
+    while (!stack.isEmpty()){
+        Zad tmp=stack.pop();
+        if (tmp.left!=null){
+            stack.push(tmp.left);
+            parents.put(tmp.left,tmp);
+        }
+        if(tmp.right!=null){
+            stack.push(tmp.right);
+            parents.put(tmp.right,tmp);
+        }
+    }
+    HashSet<Zad> path=new HashSet<>();
+    while (n1!=null){
+        path.add(n1);
+        n1=parents.get(n1);
+    }
+    while (!path.contains(n2)){
+        n2=parents.get(n2);
+    }
+    return n2;
+
+}
+
+    public static void main(String[] args) {
+        Zad zad=new Zad(1);
+        zad.left=new Zad(2);
+        zad.right=new Zad(3);
+        zad.right.left=new Zad(4);
+        zad.right.right=new Zad(5);
+        System.out.println(lowestCommonAncestor(zad,zad.right.left,zad.right.right).data);
+    }
+}
