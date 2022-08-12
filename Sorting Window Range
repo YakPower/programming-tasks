@@ -1,0 +1,46 @@
+public class Zad {
+
+    static int[] minWindowsToSort(int [] array){
+        int [] returnArray=new int[2];
+        int f=0,s= array.length-1;
+        for ( f = 0; f < array.length-1; f++) {
+            if(array[f]>array[f+1]){
+                break;
+            }
+        }
+        if(array.length-1==f){
+            return returnArray;
+        }
+        for (s = array.length-1; s >=0 ; s--) {
+            if(array[s]<array[s-1]){
+                break;
+            }
+        }
+        int min=f,max=f;
+        for (int i=f+1;i<s+1;i++){
+            if(array[max]<array[i])
+                max=i;
+            if(array[min]>array[i])
+                min=i;
+        }
+
+
+        for (int i=0;i<f;i++){
+            if(array[min]<array[i]){
+                f=i;
+            }
+        }
+        for (int i=s+1;i< array.length;i++){
+            if(array[max]>array[i]){
+                s=i;
+            }
+        }
+    returnArray[0]=f;
+        returnArray[1]=s;
+        return returnArray;
+}
+
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(minWindowsToSort(new int[]{2,6,4,8,10,9,15})));
+    }
+}
