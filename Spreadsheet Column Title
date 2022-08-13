@@ -1,0 +1,22 @@
+public class Zad {
+static String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    static String convertToTitle(int column){
+    LinkedList<Character> line=new LinkedList<>();
+
+    while (column>0){
+        if(column%26==0){
+            line.addFirst(alphabet.charAt(25));
+            column--;
+        }else
+        line.addFirst(alphabet.charAt(column%26-1));
+        column/=26;
+    }
+    return line.toString().replaceAll(", ","").replaceAll("\\[","").replaceAll("]","");
+}
+
+    public static void main(String[] args) {
+   System.out.println(convertToTitle(1));
+        System.out.println(convertToTitle(456976));
+        System.out.println(convertToTitle(28));
+    }
+}
