@@ -1,0 +1,34 @@
+public class Zad {
+
+    static boolean buddyStrings(String A,String B){
+        if(A.length()==B.length()){
+        Set<Character> set=new HashSet<>();
+            int c1=-1,c2=-1,i;
+            for ( i =0; i < A.length(); i++) {
+                set.add(A.charAt(i));
+                if(A.charAt(i)!=B.charAt(i)){
+                       c1=i;
+
+                    for (i=c1+1; i < A.length(); i++) {
+                        set.add(A.charAt(i));
+                        if(A.charAt(i)!=B.charAt(i)){
+                            c2=i;
+                            for (i=c2+1;i < A.length(); i++){
+                                if(A.charAt(i)!=B.charAt(i)) return false;
+                            }
+                            return A.charAt(c1) == B.charAt(c2) && A.charAt(c2) == B.charAt(c1);
+                        }
+                    }
+                    break;
+                }
+            }
+        return set.size()<A.length();
+        }
+        return false;
+    }
+
+
+    public static void main(String[] args) {
+        System.out.println(buddyStrings("aabcf","aabcf"));
+    }
+}
