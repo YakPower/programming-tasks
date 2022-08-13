@@ -1,0 +1,25 @@
+public class Zad {
+
+    static String based2(int number){
+        StringBuilder stringBuilder=new StringBuilder();
+        while (number!=0){
+            stringBuilder.append(number&1);
+            number=number>>1;
+        }
+        return stringBuilder.reverse().toString();
+    }
+
+
+    static String based(int number) {
+        StringBuilder stringBuilder=new StringBuilder();
+        while (number>0){
+            stringBuilder.append(number%2);
+            number/=2;
+        }
+        return stringBuilder.reverse().toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(based2(123));
+    }
+}
