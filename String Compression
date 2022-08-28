@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Zad {
+
+    static List<Character> compress(List<Character> chars){
+        int  index=0;
+        List<Character> nChars=new ArrayList<>();
+        while (index<chars.size()){
+            int repeats=0;
+            char cur=chars.get(index);
+            nChars.add(cur);
+            while (index<chars.size()&&chars.get(index)==cur){
+                index++;
+                repeats++;
+            }
+            if(repeats>1){
+                for (char c :
+                        Integer.toString(repeats).toCharArray()) {
+                    nChars.add(c);
+                }
+            }
+
+        }
+        return  nChars;
+    }
+
+    public static void main(String[] args) {
+        List<Character> chars=new ArrayList<>();
+        chars.add('a');
+        chars.add('a');
+        chars.add('b');
+        chars.add('c');
+        chars.add('c');
+        chars.add('c');
+
+        System.out.println(compress(chars));
+    }
+
+}
