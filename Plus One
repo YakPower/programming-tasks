@@ -1,0 +1,21 @@
+public class Zad {
+
+    static void plusOne(LinkedList<Integer> digits) {
+        int one=1;
+        for (int i=digits.size()-1;i>=0;i--) {
+            digits.set(i,digits.get(i)+one);
+            if(digits.get(i)==10){
+                digits.set(i,0);
+            } else {one=0;break;}
+        }
+        if(one==1){
+            digits.addFirst(1);
+        }
+    }
+
+    public static void main(String[] args) {
+        LinkedList<Integer>di =new LinkedList<>(Arrays.asList(9,9,9));
+
+        plusOne(di);
+        System.out.println(di);
+    }
